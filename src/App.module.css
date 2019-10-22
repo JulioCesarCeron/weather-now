@@ -1,3 +1,23 @@
 .container {
+  height: 100%;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wrapper-weather {
   background: #f1f1f1;
+  opacity: 0.50;
+  height: 100%;
+  width: 100%;
+  max-width: 1024px;
+}
+
+.wrapper-weather hr {
+  height: 1px;
+  width: 100%;
+  border: none;
+  margin: 0;
+  box-shadow: 0 1px 3px #3333331c;
 }

@@ -6,6 +6,10 @@ function App() {
   return (
     <div className={styles.container}>
       <Header />
+      <div className={styles['wrapper-weather']}>
+      <hr/>
+
+      </div>
     </div>
   );
 }
