@@ -1,10 +1,12 @@
 .container {
-  height: 57px;
+  position: fixed;
+  height: 54px;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   max-width: 1024px;
+  background: #fff;
 }
 
 .logo {
