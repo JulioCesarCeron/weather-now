@@ -50,6 +50,11 @@
   padding: 14px 0;
 }
 
+.footer-loading {
+  background: #fff;
+  height: 40px;
+}
+
 .content-footer {
   text-align: center;
 }
