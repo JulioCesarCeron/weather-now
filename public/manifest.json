@@ -6,12 +6,7 @@
       "src": "favicon.ico",
       "sizes": "32x32",
       "type": "image/x-icon"
-    },
-    {
-      "src": "logo.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
+    }
   ],
   "start_url": ".",
   "display": "standalone",
