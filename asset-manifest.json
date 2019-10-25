@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/JulioCesarCeron/weather-now/static/css/main.65ad36f4.chunk.css",
+    "main.js": "/JulioCesarCeron/weather-now/static/js/main.9231c8b9.chunk.js",
+    "main.js.map": "/JulioCesarCeron/weather-now/static/js/main.9231c8b9.chunk.js.map",
+    "runtime-main.js": "/JulioCesarCeron/weather-now/static/js/runtime-main.702d8dc7.js",
+    "runtime-main.js.map": "/JulioCesarCeron/weather-now/static/js/runtime-main.702d8dc7.js.map",
+    "static/js/2.2aa88400.chunk.js": "/JulioCesarCeron/weather-now/static/js/2.2aa88400.chunk.js",
+    "static/js/2.2aa88400.chunk.js.map": "/JulioCesarCeron/weather-now/static/js/2.2aa88400.chunk.js.map",
+    "index.html": "/JulioCesarCeron/weather-now/index.html",
+    "precache-manifest.50d06b7acb4588dfb693c97192fdd767.js": "/JulioCesarCeron/weather-now/precache-manifest.50d06b7acb4588dfb693c97192fdd767.js",
+    "service-worker.js": "/JulioCesarCeron/weather-now/service-worker.js",
+    "static/css/main.65ad36f4.chunk.css.map": "/JulioCesarCeron/weather-now/static/css/main.65ad36f4.chunk.css.map",
+    "static/media/loader.svg": "/JulioCesarCeron/weather-now/static/media/loader.d542c686.svg",
+    "static/media/logo.svg": "/JulioCesarCeron/weather-now/static/media/logo.45377fd6.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.702d8dc7.js",
+    "static/js/2.2aa88400.chunk.js",
+    "static/css/main.65ad36f4.chunk.css",
+    "static/js/main.9231c8b9.chunk.js"
+  ]
+}
