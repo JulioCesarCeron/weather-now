@@ -1,70 +1,71 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import styles from './WeatherCard.module.css'
 import { getWeater, getLocalData, setLocalData} from '../../../config/api'
 import { WEATHER_API } from '../../../config/index'
 import loader from '../../../assets/loader.svg';
+import {
+  kelvinToCelcius,
+  getTimeFormat12h,
+  getColorTemperature,
+  getDiffBetweenCurrentAndLocalDate,
+} from '../../../config/utils'
 
-const kelvinToCelcius = (temp) => {
-  return (temp - 273.15).toFixed(0);
-}
 
 const WeatherCard = ({ main, city, country }) => {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const [weather, setWeather] = useState({
     temp: '',
     humidity: '',
-    pressure: ''
+    pressure: '',
+    date: '',
   });
 
-  const getDiffBetweenCurrentAndLocalDate = (savedCityInfo) => {
-    const localDate = new Date(savedCityInfo.date);
-    const currentDate = new Date();
-    const diffMinutes = (((currentDate.getTime() - localDate.getTime()) / 1000) / 60).toFixed();
-    console.log('diffMinutes', diffMinutes);
-    return diffMinutes;
+  const setComponentData = useCallback((receivedData) => {
+    if (main) {
+      setWeather({ ...receivedData });
+    } else {
+      setWeather({
+        temp: receivedData.temp,
+        date: receivedData.date,
+      })
+    }
+    setLoading(false);
+  }, [main])
+
+  const onSetLocalData = async (data) => {
+    await setLocalData(data);
   }
 
-  useEffect(() => {
-
-    const setComponentData = (receivedData) => {
-      console.log('receivedData', receivedData);
-      if (main) {
-        setWeather({ ...receivedData });
-      } else {
-        setWeather({
-          temp: receivedData.temp,
-        })
+  const onGetDataFromWeather = useCallback(() => {
+    setLoading(true);
+    const url = WEATHER_API(city, country);
+    getWeater(url).then(res => {
+      const receivedData = {
+        temp: kelvinToCelcius(res.data.main.temp),
+        humidity: res.data.main.humidity,
+        pressure: res.data.main.pressure,
+        date: new Date(),
       }
-    }
 
-    const onGetDataFromWeather = () => {
-      setLoading(true);
-      const url = WEATHER_API(city, country);
-      getWeater(url).then(res => {
-        setLoading(false);
+      setComponentData(receivedData)
 
-        const receivedData = {
-          temp: kelvinToCelcius(res.data.main.temp),
-          humidity: res.data.main.humidity,
-          pressure: res.data.main.pressure,
-          date: new Date(),
-        }
+      onSetLocalData({
+        city,
+        country,
+        weather: receivedData,
+      })
+    }).catch(err => {
+      setError(err);
+    });
+  }, [city, country, setComponentData]);
 
-        setComponentData(receivedData)
-
-        onSetLocalData({
-          city,
-          country,
-          weather: receivedData,
-        })
-      });
-    }
-
+  useEffect(() => {
     const verifyLastUpdate = (savedCityInfo) => {
       const localStorageData = JSON.parse(savedCityInfo);
-      const minutes = getDiffBetweenCurrentAndLocalDate(localStorageData)
-      if (minutes >= 10) {
+      const minutes = getDiffBetweenCurrentAndLocalDate(localStorageData);
+      if (minutes > 10) {
         onGetDataFromWeather();
       } else {
         setComponentData(localStorageData);
@@ -80,26 +81,21 @@ const WeatherCard = ({ main, city, country }) => {
       }
     }
 
-    const onSetLocalData = async (data) => {
-      await setLocalData(data);
-    }
-
     onGetLocalData();
-    setInterval(() => onGetLocalData(), 50000);
+    setInterval(() => onGetLocalData(), 20000);
     
-  }, [city, country, main])
+  }, [city, country, main, onGetDataFromWeather, setComponentData]);
 
-  const getColorTemperature = () => {
-    if (weather.temp <= 5) {
-      return 'cold';
-    }
+  const temperatureValueComponent = loading
+    ? <img src={loader} className={styles.logo} alt="logo" />
+    : <p className={`${styles.temperature} ${styles[getColorTemperature(weather.temp)]}`}>{weather.temp}º</p>
 
-    if (weather.temp > 5 && weather.temp <= 25) {
-      return 'medium';
-    }
-
-    return 'hot'
-  }
+  const requestErrorMessage = (
+    <div className={styles['wrapper-error-message']}>
+      <p>Someting went wrong</p>
+      <button onClick={onGetDataFromWeather()} >Try Again</button>
+    </div>
+  )
 
   return (
     <div className={`${styles.card} ${main && styles['card-order']}`}>
@@ -107,14 +103,13 @@ const WeatherCard = ({ main, city, country }) => {
         <h3>{`${city}, ${country}`}</h3>
       </div>
       <div className={styles.main}>
-      {
-        loading
-          ? <img src={loader} className={styles.logo} alt="logo" />
-          : <p className={`${styles.temperature} ${styles[getColorTemperature()]}`}>{weather.temp}º</p>
+      {!error
+        ? temperatureValueComponent
+        : requestErrorMessage
       }
       </div>
-      <div className={ loading ? styles['footer-loading'] : styles.footer}>
-        {main && (
+      <div className={`${loading ? styles['footer-loading'] : styles.footer} ${(main && loading) && styles['main-footer-loading']}`}>
+        {(main && !loading) && (
           <div className={styles['wrapper-content-footer']}>
             <div className={styles['content-footer']} >
               <p>HUMIDITY</p>
@@ -126,7 +121,7 @@ const WeatherCard = ({ main, city, country }) => {
             </div>
           </div>
         )}
-        {!loading && <p className={styles['info-update']}>Updated at 02:48:27 PM</p>}
+        {!loading && <p className={styles['info-update']}>Updated at {getTimeFormat12h(weather.date)}</p>}
       </div>
     </div>
   );
