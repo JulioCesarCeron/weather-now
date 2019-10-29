@@ -17,7 +17,7 @@ import {
 
 const WeatherCard = ({ main, city, country, delay }) => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(false);
   const [weather, setWeather] = useState({
     temp: '',
     humidity: '',
@@ -26,6 +26,7 @@ const WeatherCard = ({ main, city, country, delay }) => {
   });
 
   const onGetDataFromWeather = useCallback(() => {
+    setError(false);
     setLoading(true);
     const url = WEATHER_API(city, country);
     getWeater(url).then(res => {
@@ -47,7 +48,7 @@ const WeatherCard = ({ main, city, country, delay }) => {
       setLoading(false);
 
     }).catch(err => {
-      setError(err);
+      setError(true);
     });
   }, [city, country]);
 

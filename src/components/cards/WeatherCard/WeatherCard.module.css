@@ -101,6 +101,7 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 12px;
+  margin-top: 52px;
 }
 
 .wrapper-error-message p {
