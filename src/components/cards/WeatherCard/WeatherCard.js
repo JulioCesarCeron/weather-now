@@ -83,7 +83,7 @@ const WeatherCard = ({ main, city, country, delay }) => {
   const requestErrorMessage = (
     <div className={styles['wrapper-error-message']}>
       <p>Someting went wrong</p>
-      <button onClick={()=> 1} >Try Again</button>
+      <button onClick={()=> onGetDataFromWeather()} >Try Again</button>
     </div>
   )
 

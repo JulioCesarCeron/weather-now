@@ -1,5 +1,5 @@
 export const kelvinToCelcius = (temp) => {
-  return (temp - 273.15).toFixed(0);
+  return Number((temp - 273.15).toFixed(0));
 }
 
 export const getTimeFormat12h = (date) => {
