@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './WeatherCard.module.css'
 import { getWeater } from '../../../config/api'
@@ -14,7 +15,7 @@ import {
 } from '../../../config/utils'
 
 
-const WeatherCard = ({ main, city, country }) => {
+const WeatherCard = ({ main, city, country, delay }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [weather, setWeather] = useState({
@@ -53,12 +54,12 @@ const WeatherCard = ({ main, city, country }) => {
   const verifyLastUpdate = useCallback((savedCityInfo) => {
     const localStorageData = JSON.parse(savedCityInfo);
     const minutes = getDiffBetweenCurrentAndLocalDate(localStorageData);
-    if (minutes > 10) {
+    if (minutes > delay) {
       onGetDataFromWeather();
     } else {
       setWeather({ ...localStorageData });
     }
-  }, [onGetDataFromWeather])
+  }, [onGetDataFromWeather, delay])
 
 
   useEffect(() => {
@@ -72,7 +73,7 @@ const WeatherCard = ({ main, city, country }) => {
     }
 
     onGetLocalData();
-    setInterval(() => onGetLocalData(), 3000)
+    setInterval(() => onGetLocalData(), 120000)
   }, [city, country, onGetDataFromWeather, verifyLastUpdate])
 
   const temperatureValueComponent = loading
@@ -115,5 +116,11 @@ const WeatherCard = ({ main, city, country }) => {
     </div>
   );
 };
+
+WeatherCard.propTypes = {
+  city: PropTypes.string.isRequired,
+  country: PropTypes.string.isRequired,
+  delay: PropTypes.number.isRequired,
+}
 
 export default WeatherCard;
