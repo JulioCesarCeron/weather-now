@@ -24,3 +24,11 @@ export const getDiffBetweenCurrentAndLocalDate = (savedCityInfo) => {
   const diffMinutes = (((currentDate.getTime() - localDate.getTime()) / 1000) / 60).toFixed();
   return diffMinutes;
 }
+
+export const getLocalData = (data) => {
+  return localStorage.getItem((`${data.city}${data.country}`).toLowerCase());
+}
+
+export const setLocalData = (data) => {
+  localStorage.setItem((`${data.city}${data.country}`).toLowerCase(), JSON.stringify(data.weather));
+}
