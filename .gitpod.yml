@@ -1,2 +1,2 @@
 tasks:
-    - command: CI=true yarn install && yarn test && yarn run
+    - command: yarn install && CI=true yarn test && yarn run
