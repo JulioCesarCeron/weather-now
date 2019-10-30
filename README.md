@@ -2,6 +2,7 @@
 # weather-now
 App to get information about the city climate you want.
 
+Quickly describing this app, your goal is to get weather information of a specific city at each time interval. For this after the first request the information is stored in the browser local storage, and every 2 minutes a function is executed to check if the time interval has already expired, if yes, a new request is made, and the values of date and time are updated.
 
 ## run on your local
 ```
