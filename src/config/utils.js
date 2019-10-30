@@ -3,7 +3,6 @@ export const kelvinToCelcius = (temp) => {
 }
 
 export const getTimeFormat12h = (date) => {
-  console.log('date', date);
   return  date ? new Date(date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) : '';
 };
 
