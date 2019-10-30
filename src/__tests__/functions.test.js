@@ -11,12 +11,6 @@ it('should convert kelvin to celcius', () => {
   expect(kelvinToCelcius(temperature)).toEqual(espectedTemperature);
 })
 
-it('should format time to 12h', () => {
-  const date = '2019-10-30T00:13:22.814Z';
-  const expected = '9:13 PM';
-  expect(getTimeFormat12h(date)).toEqual(expected);
-})
-
 it('should return temperature name', () => {
   let temperature = 2;
   expect(getColorTemperature(temperature)).toEqual('cold');
