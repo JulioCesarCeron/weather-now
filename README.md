@@ -19,7 +19,7 @@ yarn start
 
 if all is ok, this project is run on http://localhost:3000
 
-If you wish not to run on your local machine, follow this [link](https://juliocesarceron.github.io/weather-now/)
+If you wish not to run on your local machine, follow this [link](https://juliocesarceron.github.io/weather-now/){:target="_blank"}
 
 
 # usage
@@ -34,4 +34,4 @@ If you wish not to run on your local machine, follow this [link](https://julioce
 
 ## edit
 
-if you don't like edit on your local environment, edit [this project on gitpod](https://gitpod.io/#https://github.com/JulioCesarCeron/weather-now)
+if you don't like edit on your local environment, edit [this project on gitpod](https://gitpod.io/#https://github.com/JulioCesarCeron/weather-now){:target="_blank"}
