@@ -3,6 +3,7 @@ export const kelvinToCelcius = (temp) => {
 }
 
 export const getTimeFormat12h = (date) => {
+  console.log('date', date);
   return  date ? new Date(date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) : '';
 };
 
@@ -22,7 +23,7 @@ export const getDiffBetweenCurrentAndLocalDate = (savedCityInfo) => {
   const localDate = new Date(savedCityInfo.date);
   const currentDate = new Date();
   const diffMinutes = (((currentDate.getTime() - localDate.getTime()) / 1000) / 60).toFixed();
-  return diffMinutes;
+  return Number(diffMinutes);
 }
 
 export const getLocalData = (data) => {
